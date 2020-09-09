@@ -122,24 +122,11 @@ namespace HumaneSociety
             db.SubmitChanges();
         }
 
-        // 
-        //
-        //START EMPLOYEE CRUD METHODS HERE
-        //
-        //
-
-
-
-        internal static void AddUsernameAndPassword(Employee employee)
+        internal static void AddNewEmployee()
         {
-            Employee employeeFromDb = db.Employees.Where(e => e.EmployeeId == employee.EmployeeId).FirstOrDefault();
 
-            employeeFromDb.UserName = employee.UserName;
-            employeeFromDb.Password = employee.Password;
-
-            db.SubmitChanges();
         }
-       
+
         internal static Employee RetrieveEmployeeUser(string email, int employeeNumber)
         {
             Employee employeeFromDb = db.Employees.Where(e => e.Email == email && e.EmployeeNumber == employeeNumber).FirstOrDefault();
@@ -153,6 +140,30 @@ namespace HumaneSociety
                 return employeeFromDb;
             }
         }
+
+        internal static void UpdateEmployee()
+        {
+
+        }
+
+
+        internal static void DeleteEmployee()
+        {
+
+        }
+
+
+        internal static void AddUsernameAndPassword(Employee employee)
+        {
+            Employee employeeFromDb = db.Employees.Where(e => e.EmployeeId == employee.EmployeeId).FirstOrDefault();
+
+            employeeFromDb.UserName = employee.UserName;
+            employeeFromDb.Password = employee.Password;
+
+            db.SubmitChanges();
+        }
+       
+        
 
         internal static Employee EmployeeLogin(string userName, string password)
         {
@@ -175,20 +186,20 @@ namespace HumaneSociety
         internal static void RunEmployeeQueries(Employee employee, string crudOperation)
         {
             // As a developer, I want to implement the Query.RunEmployeeQueries() method so that any CRUD operation can be applied to an employee.
-           
+            
             switch (crudOperation.ToLower())
             {
-                case "add":
-                    AddUsernameAndPassword(employee);
+                case "create":
+                    AddNewEmployee(); // LOGIC NOT DONE
                     break;
-                case "retrieve":
-                    RetrieveEmployeeUser(employee.Email, employee.EmployeeId);
+                case "read":
+                    UserInterface.DisplayEmployeeInfo(employee);
                     break;
-                case "login":
-                    EmployeeLogin(employee.UserName, employee.Password);
+                case "update":
+                    UpdateEmployee(); // LOGIC NOT DONE                 
                     break;
-                case "check":
-                    CheckEmployeeUserNameExist(employee.UserName);
+                case "delete":
+                    DeleteEmployee(); // LOGIC NOT DONE
                     break;
                 default:
                     UserInterface.DisplayUserOptions("Input not recognized please try again.");
@@ -197,6 +208,8 @@ namespace HumaneSociety
             }
 
         }
+
+        
 
         // TODO: Animal CRUD Operations
         internal static void AddAnimal(Animal animal)

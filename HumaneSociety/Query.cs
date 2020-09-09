@@ -187,9 +187,25 @@ namespace HumaneSociety
         }
 
 
-        internal static void DeleteEmployee()
+        internal static void DeleteEmployee(Employee employeeToDelete)
         {
+            Employee employeeFromDb = null;
 
+            try
+            {
+                employeeFromDb = db.Employees.Where(e => e.EmployeeId == employeeToDelete.EmployeeId).Single();
+            }
+            catch (InvalidOperationException e)
+            {
+                Console.WriteLine("No employees have an EmployeeId that matches the Employee passed in.");
+                Console.WriteLine("No deletions have been made.");
+                return;
+            }
+
+            db.Employees.DeleteOnSubmit(employeeFromDb);
+
+            db.SubmitChanges();
+            
         }
 
 
@@ -236,10 +252,10 @@ namespace HumaneSociety
                     UserInterface.DisplayEmployeeInfo(employee);
                     break;
                 case "update":
-                    UpdateEmployee(); // LOGIC NOT DONE                 
+                    UpdateEmployee(employee);               
                     break;
                 case "delete":
-                    DeleteEmployee(); // LOGIC NOT DONE
+                    DeleteEmployee(employee);
                     break;
                 default:
                     UserInterface.DisplayUserOptions("Input not recognized please try again.");

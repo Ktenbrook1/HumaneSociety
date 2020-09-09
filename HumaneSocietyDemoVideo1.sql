@@ -10,6 +10,26 @@ CREATE TABLE Addresses (AddressId INTEGER IDENTITY (1,1) PRIMARY KEY, AddressLin
 CREATE TABLE Clients (ClientId INTEGER IDENTITY (1,1) PRIMARY KEY, FirstName VARCHAR(50), LastName VARCHAR(50), UserName VARCHAR(50), Password VARCHAR(50), AddressId INTEGER FOREIGN KEY REFERENCES Addresses(AddressId), Email VARCHAR(50));
 CREATE TABLE Adoptions(ClientId INTEGER FOREIGN KEY REFERENCES Clients(ClientId), AnimalId INTEGER FOREIGN KEY REFERENCES Animals(AnimalId), ApprovalStatus VARCHAR(50), AdoptionFee INTEGER, PaymentCollected BIT, CONSTRAINT AdoptionId PRIMARY KEY (ClientId, AnimalId));
 
+INSERT INTO Employees VALUES('Bob', 'Thomas', 'bobthomas25', 'password123', 01, 'bobthomas@humanesociety.org');
+INSERT INTO Employees VALUES('Susan', 'Jones', 'susanjones19', 'password123', 02, 'susanjones@humanesociety.org');
+INSERT INTO Employees VALUES('Hali', 'Watson', 'haliwatson55', 'password123', 03, 'haliwatson@humanesociety.org');
+INSERT INTO Employees VALUES('Kim', 'Ross', 'kimross10', 'password123', 04, 'kimross@humanesociety.org');
+INSERT INTO Employees VALUES('Jost', 'Cunningham', 'jostcunningham12', 'password123', 05, 'jostcunningham@humanesociety.org');
+
+INSERT INTO Clients(FirstName, LastName, UserName, Password, Email) VALUES('Faith', 'Bell', 'faithbell', 'password123', 'faithbell@gmail.com');
+INSERT INTO Clients(FirstName, LastName, UserName, Password, Email) VALUES('Cory', 'Black', 'coryblack', 'password123','coryblack@gmail.com');
+INSERT INTO Clients(FirstName, LastName, UserName, Password, Email) VALUES('Steve', 'White', 'stevewhite', 'password123', 'stevewhite@gmail.com');
+INSERT INTO Clients(FirstName, LastName, UserName, Password, Email) VALUES('John', 'Wick', 'johnwick', 'password123','johnwick@gmail.com');
+INSERT INTO Clients(FirstName, LastName, UserName, Password, Email) VALUES('Greg', 'Ham', 'gregham', 'password123','gregham@gmail.com');
+
+
+
+
+
+
+
+
+
 INSERT INTO USStates VALUES('Alabama','AL');
 INSERT INTO USStates VALUES('Alaska','AK');
 INSERT INTO USStates VALUES('Arizona','AZ');

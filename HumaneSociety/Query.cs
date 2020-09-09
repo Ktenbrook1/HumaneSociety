@@ -253,13 +253,19 @@ namespace HumaneSociety
             {
                 switch (key)
                 {
+                    case 1:
+                        animalToUpdate = db.Animals.Where(a => a.Category ==)
+                        break;
+                    case 2:
 
+                        break;
                 }
             }
         }
         internal static void RemoveAnimal(Animal animal)
         {
-            throw new NotImplementedException();
+            db.Animals.DeleteOnSubmit(animal);
+            db.SubmitChanges();
         }
         
         // TODO: Animal Multi-Trait Search

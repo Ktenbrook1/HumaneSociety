@@ -22,12 +22,29 @@ INSERT INTO Clients(FirstName, LastName, UserName, Password, Email) VALUES('Stev
 INSERT INTO Clients(FirstName, LastName, UserName, Password, Email) VALUES('John', 'Wick', 'johnwick', 'password123','johnwick@gmail.com');
 INSERT INTO Clients(FirstName, LastName, UserName, Password, Email) VALUES('Greg', 'Ham', 'gregham', 'password123','gregham@gmail.com');
 
+INSERT INTO Rooms(RoomNumber) VALUES(105);
+INSERT INTO Rooms(RoomNumber) VALUES(106);
+INSERT INTO Rooms(RoomNumber) VALUES(107);
+INSERT INTO Rooms(RoomNumber) VALUES(108);
+INSERT INTO Rooms(RoomNumber) VALUES(109);
+INSERT INTO Rooms(RoomNumber) VALUES(110);
 
+INSERT INTO Animals(Name, Weight, Age, Demeanor, KidFriendly, PetFriendly, Gender, AdoptionStatus) VALUES('Dog', 23, 5, 'Sweet', 'True', 'True', 'Male', 'Available');
+INSERT INTO Animals(Name, Weight, Age, Demeanor, KidFriendly, PetFriendly, Gender, AdoptionStatus) VALUES('Cat', 9, 2, 'Mean', 'False', 'True', 'Female', 'Available');
+INSERT INTO Animals(Name, Weight, Age, Demeanor, KidFriendly, PetFriendly, Gender, AdoptionStatus) VALUES('Fish', 2, 1, 'Gentle', 'True', 'True', 'Male', 'Not Available');
+INSERT INTO Animals(Name, Weight, Age, Demeanor, KidFriendly, PetFriendly, Gender, AdoptionStatus) VALUES('Chicken', 3, 2, 'Loud', 'True', 'True', 'Male', 'Not Available');
+INSERT INTO Animals(Name, Weight, Age, Demeanor, KidFriendly, PetFriendly, Gender, AdoptionStatus) VALUES('Horse', 900, 3, 'Gentle', 'True', 'True', 'Female', 'Available');
 
+INSERT INTO DietPlans VALUES('Weight Reduction', 'Low Calorie', 1);
+INSERT INTO DietPlans VALUES('Weight Gain', 'High Fat', 3);
+INSERT INTO DietPlans VALUES('Weight Maintain', 'Balanced', 2);
+INSERT INTO DietPlans VALUES('Enrichment', 'Treats', 1);
+INSERT INTO DietPlans VALUES('Organic','Whole Foods', 2);
 
-
-
-
+INSERT INTO Rooms(RoomNumber) VALUES(101);
+INSERT INTO Rooms(RoomNumber) VALUES(102);
+INSERT INTO Rooms(RoomNumber) VALUES(103);
+INSERT INTO Rooms(RoomNumber) VALUES(104);
 
 
 INSERT INTO USStates VALUES('Alabama','AL');

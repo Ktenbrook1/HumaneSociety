@@ -10,6 +10,43 @@ CREATE TABLE Addresses (AddressId INTEGER IDENTITY (1,1) PRIMARY KEY, AddressLin
 CREATE TABLE Clients (ClientId INTEGER IDENTITY (1,1) PRIMARY KEY, FirstName VARCHAR(50), LastName VARCHAR(50), UserName VARCHAR(50), Password VARCHAR(50), AddressId INTEGER FOREIGN KEY REFERENCES Addresses(AddressId), Email VARCHAR(50));
 CREATE TABLE Adoptions(ClientId INTEGER FOREIGN KEY REFERENCES Clients(ClientId), AnimalId INTEGER FOREIGN KEY REFERENCES Animals(AnimalId), ApprovalStatus VARCHAR(50), AdoptionFee INTEGER, PaymentCollected BIT, CONSTRAINT AdoptionId PRIMARY KEY (ClientId, AnimalId));
 
+INSERT INTO Employees VALUES('Bob', 'Thomas', 'bobthomas25', 'password123', 01, 'bobthomas@humanesociety.org');
+INSERT INTO Employees VALUES('Susan', 'Jones', 'susanjones19', 'password123', 02, 'susanjones@humanesociety.org');
+INSERT INTO Employees VALUES('Hali', 'Watson', 'haliwatson55', 'password123', 03, 'haliwatson@humanesociety.org');
+INSERT INTO Employees VALUES('Kim', 'Ross', 'kimross10', 'password123', 04, 'kimross@humanesociety.org');
+INSERT INTO Employees VALUES('Jost', 'Cunningham', 'jostcunningham12', 'password123', 05, 'jostcunningham@humanesociety.org');
+
+INSERT INTO Clients(FirstName, LastName, UserName, Password, Email) VALUES('Faith', 'Bell', 'faithbell', 'password123', 'faithbell@gmail.com');
+INSERT INTO Clients(FirstName, LastName, UserName, Password, Email) VALUES('Cory', 'Black', 'coryblack', 'password123','coryblack@gmail.com');
+INSERT INTO Clients(FirstName, LastName, UserName, Password, Email) VALUES('Steve', 'White', 'stevewhite', 'password123', 'stevewhite@gmail.com');
+INSERT INTO Clients(FirstName, LastName, UserName, Password, Email) VALUES('John', 'Wick', 'johnwick', 'password123','johnwick@gmail.com');
+INSERT INTO Clients(FirstName, LastName, UserName, Password, Email) VALUES('Greg', 'Ham', 'gregham', 'password123','gregham@gmail.com');
+
+INSERT INTO Rooms(RoomNumber) VALUES(105);
+INSERT INTO Rooms(RoomNumber) VALUES(106);
+INSERT INTO Rooms(RoomNumber) VALUES(107);
+INSERT INTO Rooms(RoomNumber) VALUES(108);
+INSERT INTO Rooms(RoomNumber) VALUES(109);
+INSERT INTO Rooms(RoomNumber) VALUES(110);
+
+INSERT INTO Animals(Name, Weight, Age, Demeanor, KidFriendly, PetFriendly, Gender, AdoptionStatus) VALUES('Dog', 23, 5, 'Sweet', 'True', 'True', 'Male', 'Available');
+INSERT INTO Animals(Name, Weight, Age, Demeanor, KidFriendly, PetFriendly, Gender, AdoptionStatus) VALUES('Cat', 9, 2, 'Mean', 'False', 'True', 'Female', 'Available');
+INSERT INTO Animals(Name, Weight, Age, Demeanor, KidFriendly, PetFriendly, Gender, AdoptionStatus) VALUES('Fish', 2, 1, 'Gentle', 'True', 'True', 'Male', 'Not Available');
+INSERT INTO Animals(Name, Weight, Age, Demeanor, KidFriendly, PetFriendly, Gender, AdoptionStatus) VALUES('Chicken', 3, 2, 'Loud', 'True', 'True', 'Male', 'Not Available');
+INSERT INTO Animals(Name, Weight, Age, Demeanor, KidFriendly, PetFriendly, Gender, AdoptionStatus) VALUES('Horse', 900, 3, 'Gentle', 'True', 'True', 'Female', 'Available');
+
+INSERT INTO DietPlans VALUES('Weight Reduction', 'Low Calorie', 1);
+INSERT INTO DietPlans VALUES('Weight Gain', 'High Fat', 3);
+INSERT INTO DietPlans VALUES('Weight Maintain', 'Balanced', 2);
+INSERT INTO DietPlans VALUES('Enrichment', 'Treats', 1);
+INSERT INTO DietPlans VALUES('Organic','Whole Foods', 2);
+
+INSERT INTO Rooms(RoomNumber) VALUES(101);
+INSERT INTO Rooms(RoomNumber) VALUES(102);
+INSERT INTO Rooms(RoomNumber) VALUES(103);
+INSERT INTO Rooms(RoomNumber) VALUES(104);
+
+
 INSERT INTO USStates VALUES('Alabama','AL');
 INSERT INTO USStates VALUES('Alaska','AK');
 INSERT INTO USStates VALUES('Arizona','AZ');

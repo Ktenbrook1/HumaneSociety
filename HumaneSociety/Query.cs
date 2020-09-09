@@ -122,10 +122,7 @@ namespace HumaneSociety
             db.SubmitChanges();
         }
 
-        internal static void AddNewEmployee()
-        {
-
-        }
+        
 
         internal static Employee RetrieveEmployeeUser(string email, int employeeNumber)
         {
@@ -139,6 +136,22 @@ namespace HumaneSociety
             {
                 return employeeFromDb;
             }
+        }
+
+        internal static void AddNewEmployee(string firstName, string lastName, string username, string password, string email)
+        {
+            Employee newEmployee = new Employee();
+
+            newEmployee.FirstName = firstName;
+            newEmployee.LastName = lastName;
+            newEmployee.UserName = username;
+            newEmployee.Password = password;
+            newEmployee.Email = email;
+
+            db.Employees.InsertOnSubmit(newEmployee);
+
+            db.SubmitChanges();
+
         }
 
         internal static void UpdateEmployee()
@@ -190,7 +203,7 @@ namespace HumaneSociety
             switch (crudOperation.ToLower())
             {
                 case "create":
-                    AddNewEmployee(); // LOGIC NOT DONE
+                    AddNewEmployee(employee.FirstName,employee.LastName, employee.UserName, employee.Password, employee.Email); 
                     break;
                 case "read":
                     UserInterface.DisplayEmployeeInfo(employee);

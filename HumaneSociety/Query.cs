@@ -121,7 +121,15 @@ namespace HumaneSociety
             // submit changes
             db.SubmitChanges();
         }
-        
+
+        // 
+        //
+        //START EMPLOYEE CRUD METHODS HERE
+        //
+        //
+
+
+
         internal static void AddUsernameAndPassword(Employee employee)
         {
             Employee employeeFromDb = db.Employees.Where(e => e.EmployeeId == employee.EmployeeId).FirstOrDefault();
@@ -131,7 +139,7 @@ namespace HumaneSociety
 
             db.SubmitChanges();
         }
-
+       
         internal static Employee RetrieveEmployeeUser(string email, int employeeNumber)
         {
             Employee employeeFromDb = db.Employees.Where(e => e.Email == email && e.EmployeeNumber == employeeNumber).FirstOrDefault();
@@ -166,7 +174,28 @@ namespace HumaneSociety
         // TODO: Allow any of the CRUD operations to occur here
         internal static void RunEmployeeQueries(Employee employee, string crudOperation)
         {
-            throw new NotImplementedException();
+            // As a developer, I want to implement the Query.RunEmployeeQueries() method so that any CRUD operation can be applied to an employee.
+           
+            switch (crudOperation.ToLower())
+            {
+                case "add":
+                    AddUsernameAndPassword(employee);
+                    break;
+                case "retrieve":
+                    RetrieveEmployeeUser(employee.Email, employee.EmployeeId);
+                    break;
+                case "login":
+                    EmployeeLogin(employee.UserName, employee.Password);
+                    break;
+                case "check":
+                    CheckEmployeeUserNameExist(employee.UserName);
+                    break;
+                default:
+                    UserInterface.DisplayUserOptions("Input not recognized please try again.");
+                    RunEmployeeQueries(employee, crudOperation);
+                    break;
+            }
+
         }
 
         // TODO: Animal CRUD Operations

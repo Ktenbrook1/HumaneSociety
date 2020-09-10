@@ -154,57 +154,14 @@ namespace HumaneSociety
 
         }
 
-        internal static void UpdateEmployee(Employee employeeWithUpdates)
+        internal static void UpdateEmployee()
         {
-            // Find corresponding employee from database
-
-            Employee employeeFromDb = null;
-
-            try
-            {
-                employeeFromDb = db.Employees.Where(e => e.EmployeeId == employeeWithUpdates.EmployeeId).Single();
-            }
-            catch (InvalidOperationException e)
-            {
-                Console.WriteLine("No employees have an EmployeeId that matches the Employee passed in.");
-                Console.WriteLine("No updates have been made.");
-                return;
-            }
-
-            // Use passed in employee to update values of employee found in database
-            employeeFromDb.FirstName = employeeWithUpdates.FirstName;
-            employeeFromDb.LastName = employeeWithUpdates.LastName;
-            employeeFromDb.UserName = employeeWithUpdates.UserName;
-            employeeFromDb.Password = employeeWithUpdates.Password;
-            employeeFromDb.Email = employeeWithUpdates.Email;
-
-            //submit changes to database
-            db.SubmitChanges();
 
         }
 
 
-        internal static void DeleteEmployee(Employee employeeToDelete)
+        internal static void DeleteEmployee()
         {
-            
-            Employee employeeFromDb = null;
-
-            try
-            {
-                employeeFromDb = db.Employees.Where(e => e.EmployeeId == employeeToDelete.EmployeeId).Single();
-            }
-            catch (InvalidOperationException e)
-            {
-                Console.WriteLine("No employees have an EmployeeId that matches the Employee passed in.");
-                Console.WriteLine("No deletions have been made.");
-                return;
-            }
-
-            db.Employees.DeleteOnSubmit(employeeFromDb);
-
-            db.SubmitChanges();
-
-            
 
         }
 
@@ -252,10 +209,10 @@ namespace HumaneSociety
                     UserInterface.DisplayEmployeeInfo(employee);
                     break;
                 case "update":
-                    UpdateEmployee();                 
+                    UpdateEmployee(); // LOGIC NOT DONE                 
                     break;
                 case "delete":
-                    DeleteEmployee(); 
+                    DeleteEmployee(); // LOGIC NOT DONE
                     break;
                 default:
                     UserInterface.DisplayUserOptions("Input not recognized please try again.");
@@ -297,11 +254,12 @@ namespace HumaneSociety
                 switch (key)
                 {
                     case 1:
-                       // animalToUpdate = db.Animals.Where(a => a.Category ==)
+                        animalToUpdate.Category = db.Categories.Where(c => c.CategoryId == GetCategoryId(updates[key])).FirstOrDefault();
+                        db.SubmitChanges();
                         break;
-                    case 2:
-                        animalToUpdate = db.Animals.Where(a => a.Name)
-                        break;
+                   // case 2:
+                        //animalToUpdate = db.Animals.Where(a => a.Name)
+                        //break;
                 }
             }
         }
@@ -320,16 +278,8 @@ namespace HumaneSociety
         // TODO: Misc Animal Things
         internal static int GetCategoryId(string categoryName)
         {
-            string categoryThatExist = db.Categories.Where(a => a.Name == categoryName);
-
-            if (categoryThatExist == null)
-            {
-                throw new NullReferenceException();
-            }
-            else
-            {
-                return categoryThatExist;
-            }
+            var categoryThatExist = db.Categories.Where(c => c.Name == categoryName).FirstOrDefault().CategoryId;
+            return categoryThatExist;
         }
         
         internal static Room GetRoom(int animalId)

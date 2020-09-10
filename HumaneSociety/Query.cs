@@ -325,53 +325,9 @@ namespace HumaneSociety
         
         // TODO: Animal Multi-Trait Search
         internal static IQueryable<Animal> SearchForAnimalsByMultipleTraits(Dictionary<int, string> updates) // parameter(s)?
-        {           
-            var animals = db.Animals.AsQueryable();
-            foreach (var pair in updates) // foreach iterate over keyvalue pair (see Perls)
-            {
-                switch (pair.Key)
-                {
-                    
-                    case 1:
-                        animals = animals.Where(s => s.CategoryId != GetCategoryId(pair.Value));                
-                        break;
-                      
-                    case 2:
-                        animals = animals.Where(s => s.Name != pair.Value);
-                        break;
-
-                    case 3:
-                        animals = animals.Where(s => s.Age != int.Parse(pair.Value));                                             
-                        break;
-
-                    case 4:
-                        animals = animals.Where(s => s.Demeanor != pair.Value);                       
-                        break;
-
-                    case 5:
-                        animals = animals.Where(s => s.KidFriendly != bool.Parse(pair.Value));                       
-                        break;
-
-                    case 6:
-                        animals = animals.Where(s => s.PetFriendly != bool.Parse(pair.Value));                       
-                        break;
-
-                    case 7:
-                        animals = animals.Where(s => s.Weight != int.Parse(pair.Value));                     
-                        break;
-
-                    case 8:
-                        animals = animals.Where(s => s.AnimalId != int.Parse(pair.Value));                    
-                        break;
-
-                }
-             
-            }
-
-            return animals;
-
+        {
+            throw new NotImplementedException();
         }
-
          
         // TODO: Misc Animal Things
         internal static int GetCategoryId(string categoryName)
@@ -421,6 +377,12 @@ namespace HumaneSociety
 
         internal static void UpdateShot(string shotName, Animal animal)
         {
+            AnimalShot animalShot = new AnimalShot();
+            Shot shot = db.Shots.Where(s => s.Name == shotName).FirstOrDefault();
+            animalShot.AnimalId = animal.AnimalId;
+            animalShot.DateReceived = DateTime.Today;
+            db.Animals.InsertOnSubmit(animal);
+            db.SubmitChanges();
             
         }
     }

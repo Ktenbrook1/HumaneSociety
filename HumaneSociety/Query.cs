@@ -258,7 +258,6 @@ namespace HumaneSociety
                         animalToUpdate.Category = db.Categories.Where(c => c.CategoryId == GetCategoryId(updates[key])).FirstOrDefault();
                         db.SubmitChanges();
                         break;
-                        //"2. Name", "3. Age", "4. Demeanor", "5. Kid friendly", "6. Pet friendly", "7. Weight", "8. Finished", 
                     case 2:
                         animalToUpdate.Name = updates[key];
                         db.SubmitChanges();

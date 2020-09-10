@@ -322,15 +322,57 @@ namespace HumaneSociety
             db.Animals.DeleteOnSubmit(animal);
             db.SubmitChanges();
         }
-        
+
         // TODO: Animal Multi-Trait Search
         internal static IQueryable<Animal> SearchForAnimalsByMultipleTraits(Dictionary<int, string> updates) // parameter(s)?
         {
-            throw new NotImplementedException();
+            var animals = db.Animals.AsQueryable();
+            foreach (var pair in updates) // foreach iterate over keyvalue pair (see Perls)
+            {
+                switch (pair.Key)
+                {
+
+                    case 1:
+                        animals = animals.Where(s => s.CategoryId != GetCategoryId(pair.Value));
+                        break;
+
+                    case 2:
+                        animals = animals.Where(s => s.Name != pair.Value);
+                        break;
+
+                    case 3:
+                        animals = animals.Where(s => s.Age != int.Parse(pair.Value));
+                        break;
+
+                    case 4:
+                        animals = animals.Where(s => s.Demeanor != pair.Value);
+                        break;
+
+                    case 5:
+                        animals = animals.Where(s => s.KidFriendly != bool.Parse(pair.Value));
+                        break;
+
+                    case 6:
+                        animals = animals.Where(s => s.PetFriendly != bool.Parse(pair.Value));
+                        break;
+
+                    case 7:
+                        animals = animals.Where(s => s.Weight != int.Parse(pair.Value));
+                        break;
+
+                    case 8:
+                        animals = animals.Where(s => s.AnimalId != int.Parse(pair.Value));
+                        break;
+
+                }
+
+            }
+
+            return animals;
         }
-         
-        // TODO: Misc Animal Things
-        internal static int GetCategoryId(string categoryName)
+
+            // TODO: Misc Animal Things
+            internal static int GetCategoryId(string categoryName)
         {
             var categoryThatExist = db.Categories.Where(c => c.Name == categoryName).FirstOrDefault().CategoryId;
             return categoryThatExist;
@@ -357,7 +399,7 @@ namespace HumaneSociety
             Adoption newAdoption = new Adoption();
 
             newAdoption.ClientId = clientAdopter.ClientId;
-            newAdoption.ApprovalStatus = "Adopted";
+            newAdoption.ApprovalStatus = "Pending";
             newAdoption.AdoptionFee = 75;
             newAdoption.AnimalId = adoptedAnimal.AnimalId;
 
@@ -368,7 +410,9 @@ namespace HumaneSociety
 
         internal static IQueryable<Adoption> GetPendingAdoptions()
         {
-            throw new NotImplementedException();
+            var pendingAdoptions = db.Adoptions.Where(a => a.ApprovalStatus == "Pending");
+
+            return pendingAdoptions;
         }
 
         internal static void UpdateAdoption(bool isAdopted, Adoption adoption)

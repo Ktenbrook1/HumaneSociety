@@ -155,53 +155,16 @@ namespace HumaneSociety
 
         }
 
-
-        internal static void UpdateEmployee(Employee employeeWithUpdates)
+        internal static void UpdateEmployee()
         {
-            // Find corresponding employee from database
-            Employee employeeFromDb = null;
-            try
-            {
-                employeeFromDb = db.Employees.Where(e => e.EmployeeId == employeeWithUpdates.EmployeeId).Single();
-            }
-            catch (InvalidOperationException e)
-            {
-                Console.WriteLine("No employees have an EmployeeId that matches the Employee passed in.");
-                Console.WriteLine("No updates have been made.");
-                return;
-            }
-            // Use passed in employee to update values of employee found in database
-            employeeFromDb.FirstName = employeeWithUpdates.FirstName;
-            employeeFromDb.LastName = employeeWithUpdates.LastName;
-            employeeFromDb.UserName = employeeWithUpdates.UserName;
-            employeeFromDb.Password = employeeWithUpdates.Password;
-            employeeFromDb.Email = employeeWithUpdates.Email;
-            //submit changes to database
-            db.SubmitChanges();
+
         }
 
 
-        internal static void DeleteEmployee(Employee employeeToDelete)
+        internal static void DeleteEmployee()
         {
-            Employee employeeFromDb = null;
-
-            try
-            {
-                employeeFromDb = db.Employees.Where(e => e.EmployeeId == employeeToDelete.EmployeeId).Single();
-            }
-            catch (InvalidOperationException e)
-            {
-                Console.WriteLine("No employees have an EmployeeId that matches the Employee passed in.");
-                Console.WriteLine("No deletions have been made.");
-                return;
-            }
-
-            db.Employees.DeleteOnSubmit(employeeFromDb);
-
-            db.SubmitChanges();
 
         }
-
 
 
         internal static void AddUsernameAndPassword(Employee employee)
@@ -247,10 +210,10 @@ namespace HumaneSociety
                     UserInterface.DisplayEmployeeInfo(employee);
                     break;
                 case "update":
-                    UpdateEmployee(employee);                 
+                    UpdateEmployee(); // LOGIC NOT DONE                 
                     break;
                 case "delete":
-                    DeleteEmployee(employee); 
+                    DeleteEmployee(); // LOGIC NOT DONE
                     break;
                 default:
                     UserInterface.DisplayUserOptions("Input not recognized please try again.");
@@ -363,21 +326,9 @@ namespace HumaneSociety
         // TODO: Animal Multi-Trait Search
         internal static IQueryable<Animal> SearchForAnimalsByMultipleTraits(Dictionary<int, string> updates) // parameter(s)?
         {
-            var animals = db.Animals;
-            foreach (var pair in updates) // foreach iterate over keyvalue pair (see Perls)
-            {
-                switch (pair)
-                {
-                    case (pair.Key == 1):
-                        break;
-                }
-
-            }
-
-            return animals;
-
+            throw new NotImplementedException();
         }
-
+         
         // TODO: Misc Animal Things
         internal static int GetCategoryId(string categoryName)
         {
@@ -387,12 +338,14 @@ namespace HumaneSociety
         
         internal static Room GetRoom(int animalId)
         {
-            throw new NotImplementedException();
+            Room room = db.Rooms.Where(a => a.AnimalId == animalId).Single();
+            return room;
         }
         
         internal static int GetDietPlanId(string dietPlanName)
         {
-            throw new NotImplementedException();
+            var dietPlan = db.DietPlans.Where(d => d.Name == dietPlanName).FirstOrDefault().DietPlanId;
+            return dietPlan;
         }
 
         // TODO: Adoption CRUD Operations

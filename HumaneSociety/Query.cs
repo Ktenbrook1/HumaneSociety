@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -154,57 +155,14 @@ namespace HumaneSociety
 
         }
 
-        internal static void UpdateEmployee(Employee employeeWithUpdates)
+        internal static void UpdateEmployee()
         {
-            // Find corresponding employee from database
-
-            Employee employeeFromDb = null;
-
-            try
-            {
-                employeeFromDb = db.Employees.Where(e => e.EmployeeId == employeeWithUpdates.EmployeeId).Single();
-            }
-            catch (InvalidOperationException e)
-            {
-                Console.WriteLine("No employees have an EmployeeId that matches the Employee passed in.");
-                Console.WriteLine("No updates have been made.");
-                return;
-            }
-
-            // Use passed in employee to update values of employee found in database
-            employeeFromDb.FirstName = employeeWithUpdates.FirstName;
-            employeeFromDb.LastName = employeeWithUpdates.LastName;
-            employeeFromDb.UserName = employeeWithUpdates.UserName;
-            employeeFromDb.Password = employeeWithUpdates.Password;
-            employeeFromDb.Email = employeeWithUpdates.Email;
-
-            //submit changes to database
-            db.SubmitChanges();
 
         }
 
 
-        internal static void DeleteEmployee(Employee employeeToDelete)
+        internal static void DeleteEmployee()
         {
-            
-            Employee employeeFromDb = null;
-
-            try
-            {
-                employeeFromDb = db.Employees.Where(e => e.EmployeeId == employeeToDelete.EmployeeId).Single();
-            }
-            catch (InvalidOperationException e)
-            {
-                Console.WriteLine("No employees have an EmployeeId that matches the Employee passed in.");
-                Console.WriteLine("No deletions have been made.");
-                return;
-            }
-
-            db.Employees.DeleteOnSubmit(employeeFromDb);
-
-            db.SubmitChanges();
-
-            
 
         }
 
@@ -297,10 +255,64 @@ namespace HumaneSociety
                 switch (key)
                 {
                     case 1:
-                        animalToUpdate = db.Animals.Where(a => a.Category ==)
+                        animalToUpdate.Category = db.Categories.Where(c => c.CategoryId == GetCategoryId(updates[key])).FirstOrDefault();
+                        db.SubmitChanges();
                         break;
+                        //"2. Name", "3. Age", "4. Demeanor", "5. Kid friendly", "6. Pet friendly", "7. Weight", "8. Finished", 
                     case 2:
-
+                        animalToUpdate.Name = updates[key];
+                        db.SubmitChanges();
+                        break;
+                    case 3:
+                        try
+                        {
+                            animalToUpdate.Age = Int32.Parse(updates[key]);
+                        }
+                        catch 
+                        {
+                            Console.WriteLine("Invalid Input");
+                        }
+                        db.SubmitChanges();
+                        break;
+                    case 4:
+                        animalToUpdate.Demeanor = updates[key];
+                        db.SubmitChanges();
+                        break;
+                    case 5:
+                        try
+                        {
+                            animalToUpdate.KidFriendly = bool.Parse(updates[key]);
+                        }
+                        catch
+                        {
+                            Console.WriteLine("Invalid Input");
+                        }
+                        db.SubmitChanges();
+                        break;
+                    case 6:
+                        try
+                        {
+                            animalToUpdate.PetFriendly = bool.Parse(updates[key]);
+                        }
+                        catch
+                        {
+                            Console.WriteLine("Invalid Input");
+                        }
+                        db.SubmitChanges();
+                        break;
+                    case 7:
+                        try
+                        {
+                            animalToUpdate.Weight = Int32.Parse(updates[key]);
+                        }
+                        catch
+                        {
+                            Console.WriteLine("Invalid Input");
+                        }
+                        db.SubmitChanges();
+                        break;
+                    case 8:
+                        Console.WriteLine("Update Complete");
                         break;
                 }
             }
@@ -330,7 +342,8 @@ namespace HumaneSociety
         // TODO: Misc Animal Things
         internal static int GetCategoryId(string categoryName)
         {
-            throw new NotImplementedException();
+            var categoryThatExist = db.Categories.Where(c => c.Name == categoryName).FirstOrDefault().CategoryId;
+            return categoryThatExist;
         }
         
         internal static Room GetRoom(int animalId)

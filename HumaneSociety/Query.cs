@@ -254,10 +254,10 @@ namespace HumaneSociety
                 switch (key)
                 {
                     case 1:
-                        animalToUpdate = db.Animals.Where(a => a.Category ==)
+                       // animalToUpdate = db.Animals.Where(a => a.Category ==)
                         break;
                     case 2:
-
+                        animalToUpdate = db.Animals.Where(a => a.Name)
                         break;
                 }
             }
@@ -277,7 +277,16 @@ namespace HumaneSociety
         // TODO: Misc Animal Things
         internal static int GetCategoryId(string categoryName)
         {
-            throw new NotImplementedException();
+            string categoryThatExist = db.Categories.Where(a => a.Name == categoryName);
+
+            if (categoryThatExist == null)
+            {
+                throw new NullReferenceException();
+            }
+            else
+            {
+                return categoryThatExist;
+            }
         }
         
         internal static Room GetRoom(int animalId)

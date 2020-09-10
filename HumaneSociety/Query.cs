@@ -363,14 +363,58 @@ namespace HumaneSociety
         // TODO: Animal Multi-Trait Search
         internal static IQueryable<Animal> SearchForAnimalsByMultipleTraits(Dictionary<int, string> updates) // parameter(s)?
         {
+            // As a developer, I want to take in a set of search parameters
+            // Go through each parameter, and for any items in my database that don't contain the parameter,
+            // remove those items and return a list of animals that match all the parameters
+
+
             var animals = db.Animals;
             foreach (var pair in updates) // foreach iterate over keyvalue pair (see Perls)
             {
-                switch (pair)
+                switch (pair.Key)
                 {
-                    case (pair.Key == 1):
+                    
+                    case 1:
+                        //var currentQuery = animals.Select(a => a.CategoryId == GetCategoryId(pair.Value)).SingleOrDefault();
+                        var deleteDetails1 =
+                            from animal in animals
+                            where animal.CategoryId != GetCategoryId(pair.Value)
+                            select animal;
+
+                        foreach (var animal in deleteDetails1)
+                        {
+                            animals.DeleteOnSubmit(animal);
+                        }
                         break;
+                    case 2:
+                        var deleteDetails2 =
+                            from animal in animals
+                            where animal.Name != pair.Value
+                            select animal;
+
+                        foreach (var animal in deleteDetails2)
+                        {
+                            animals.DeleteOnSubmit(animal);
+                        }
+                        break;
+
+                    case 3:
+                        var deleteDetails3 =
+                            from animal in animals
+                            where animal.Age != pair.Value
+                            select animal;
+
+                        foreach (var animal in deleteDetails3)
+                        {
+                            animals.DeleteOnSubmit(animal);
+                        }
+                        break;
+
+
+
                 }
+
+                
 
             }
 

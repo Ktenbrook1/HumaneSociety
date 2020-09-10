@@ -371,7 +371,7 @@ namespace HumaneSociety
         }
 
             // TODO: Misc Animal Things
-            internal static int GetCategoryId(string categoryName)
+        internal static int GetCategoryId(string categoryName)
         {
             var categoryThatExist = db.Categories.Where(c => c.Name == categoryName).FirstOrDefault().CategoryId;
             return categoryThatExist;
@@ -416,7 +416,30 @@ namespace HumaneSociety
 
         internal static void UpdateAdoption(bool isAdopted, Adoption adoption)
         {
-            throw new NotImplementedException();
+            Adoption adoptionToUpdate = null;
+
+            try
+            {
+                adoptionToUpdate = db.Adoptions.Where(a => a.AnimalId == adoption.AnimalId).SingleOrDefault();
+            }
+            catch (InvalidOperationException e)
+            {
+                Console.WriteLine("No adoptions match the adoption you have passed in.");
+                Console.WriteLine("No updates have been made.");
+                return;
+            }
+
+            if (isAdopted == true)
+            {
+                adoptionToUpdate.ApprovalStatus = "Adopted!";
+
+            }
+            else
+            {
+                adoptionToUpdate.ApprovalStatus = "Not Approved!";
+            }
+
+            db.SubmitChanges();
         }
 
         internal static void RemoveAdoption(int animalId, int clientId)

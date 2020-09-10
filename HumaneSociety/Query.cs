@@ -252,10 +252,10 @@ namespace HumaneSociety
                     UserInterface.DisplayEmployeeInfo(employee);
                     break;
                 case "update":
-                    UpdateEmployee();                 
+                    UpdateEmployee(employee);                 
                     break;
                 case "delete":
-                    DeleteEmployee(); 
+                    DeleteEmployee(employee); 
                     break;
                 default:
                     UserInterface.DisplayUserOptions("Input not recognized please try again.");
@@ -314,7 +314,17 @@ namespace HumaneSociety
         // TODO: Animal Multi-Trait Search
         internal static IQueryable<Animal> SearchForAnimalsByMultipleTraits(Dictionary<int, string> updates) // parameter(s)?
         {
-            throw new NotImplementedException();
+            
+            for (int i = 0; i < updates.Count; i++)
+            {
+                if (updates.ContainsKey(i))
+                {
+                    var animals = db.Animals.Where(a => a.Category == updates[i]);
+                }
+
+            }
+            
+            return animals;
         }
          
         // TODO: Misc Animal Things

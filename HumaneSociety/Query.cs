@@ -155,16 +155,53 @@ namespace HumaneSociety
 
         }
 
-        internal static void UpdateEmployee()
-        {
 
+        internal static void UpdateEmployee(Employee employeeWithUpdates)
+        {
+            // Find corresponding employee from database
+            Employee employeeFromDb = null;
+            try
+            {
+                employeeFromDb = db.Employees.Where(e => e.EmployeeId == employeeWithUpdates.EmployeeId).Single();
+            }
+            catch (InvalidOperationException e)
+            {
+                Console.WriteLine("No employees have an EmployeeId that matches the Employee passed in.");
+                Console.WriteLine("No updates have been made.");
+                return;
+            }
+            // Use passed in employee to update values of employee found in database
+            employeeFromDb.FirstName = employeeWithUpdates.FirstName;
+            employeeFromDb.LastName = employeeWithUpdates.LastName;
+            employeeFromDb.UserName = employeeWithUpdates.UserName;
+            employeeFromDb.Password = employeeWithUpdates.Password;
+            employeeFromDb.Email = employeeWithUpdates.Email;
+            //submit changes to database
+            db.SubmitChanges();
         }
 
 
-        internal static void DeleteEmployee()
+        internal static void DeleteEmployee(Employee employeeToDelete)
         {
+            Employee employeeFromDb = null;
+
+            try
+            {
+                employeeFromDb = db.Employees.Where(e => e.EmployeeId == employeeToDelete.EmployeeId).Single();
+            }
+            catch (InvalidOperationException e)
+            {
+                Console.WriteLine("No employees have an EmployeeId that matches the Employee passed in.");
+                Console.WriteLine("No deletions have been made.");
+                return;
+            }
+
+            db.Employees.DeleteOnSubmit(employeeFromDb);
+
+            db.SubmitChanges();
 
         }
+
 
 
         internal static void AddUsernameAndPassword(Employee employee)
@@ -326,19 +363,21 @@ namespace HumaneSociety
         // TODO: Animal Multi-Trait Search
         internal static IQueryable<Animal> SearchForAnimalsByMultipleTraits(Dictionary<int, string> updates) // parameter(s)?
         {
-            
-            for (int i = 0; i < updates.Count; i++)
+            var animals = db.Animals;
+            foreach (var pair in updates) // foreach iterate over keyvalue pair (see Perls)
             {
-                if (updates.ContainsKey(i))
+                switch (pair)
                 {
-                    var animals = db.Animals.Where(a => a.Category == updates[i]);
+                    case (pair.Key == 1):
+                        break;
                 }
 
             }
-            
+
             return animals;
+
         }
-         
+
         // TODO: Misc Animal Things
         internal static int GetCategoryId(string categoryName)
         {

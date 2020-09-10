@@ -46,6 +46,19 @@ INSERT INTO Rooms(RoomNumber) VALUES(102);
 INSERT INTO Rooms(RoomNumber) VALUES(103);
 INSERT INTO Rooms(RoomNumber) VALUES(104);
 
+INSERT INTO Categories(Name) VALUES('Dog');
+INSERT INTO Categories(Name) VALUES('Cat');
+INSERT INTO Categories(Name) VALUES('Fish');
+INSERT INTO Categories(Name) VALUES('Chicken');
+INSERT INTO Categories(Name) VALUES('Horse');
+
+UPDATE ANIMALS SET Name = 'Fido' WHERE AnimalID = 1;
+UPDATE ANIMALS SET Name = 'Lucy' WHERE AnimalID = 2;
+UPDATE ANIMALS SET Name = 'Pucker' WHERE AnimalID = 3;
+UPDATE ANIMALS SET Name = 'Cluck' WHERE AnimalID = 4;
+UPDATE ANIMALS SET Name = 'Shadow' WHERE AnimalID = 5;
+
+
 
 INSERT INTO USStates VALUES('Alabama','AL');
 INSERT INTO USStates VALUES('Alaska','AK');

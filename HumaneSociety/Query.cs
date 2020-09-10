@@ -154,14 +154,57 @@ namespace HumaneSociety
 
         }
 
-        internal static void UpdateEmployee()
+        internal static void UpdateEmployee(Employee employeeWithUpdates)
         {
+            // Find corresponding employee from database
+
+            Employee employeeFromDb = null;
+
+            try
+            {
+                employeeFromDb = db.Employees.Where(e => e.EmployeeId == employeeWithUpdates.EmployeeId).Single();
+            }
+            catch (InvalidOperationException e)
+            {
+                Console.WriteLine("No employees have an EmployeeId that matches the Employee passed in.");
+                Console.WriteLine("No updates have been made.");
+                return;
+            }
+
+            // Use passed in employee to update values of employee found in database
+            employeeFromDb.FirstName = employeeWithUpdates.FirstName;
+            employeeFromDb.LastName = employeeWithUpdates.LastName;
+            employeeFromDb.UserName = employeeWithUpdates.UserName;
+            employeeFromDb.Password = employeeWithUpdates.Password;
+            employeeFromDb.Email = employeeWithUpdates.Email;
+
+            //submit changes to database
+            db.SubmitChanges();
 
         }
 
 
-        internal static void DeleteEmployee()
+        internal static void DeleteEmployee(Employee employeeToDelete)
         {
+            
+            Employee employeeFromDb = null;
+
+            try
+            {
+                employeeFromDb = db.Employees.Where(e => e.EmployeeId == employeeToDelete.EmployeeId).Single();
+            }
+            catch (InvalidOperationException e)
+            {
+                Console.WriteLine("No employees have an EmployeeId that matches the Employee passed in.");
+                Console.WriteLine("No deletions have been made.");
+                return;
+            }
+
+            db.Employees.DeleteOnSubmit(employeeFromDb);
+
+            db.SubmitChanges();
+
+            
 
         }
 
@@ -209,10 +252,10 @@ namespace HumaneSociety
                     UserInterface.DisplayEmployeeInfo(employee);
                     break;
                 case "update":
-                    UpdateEmployee(); // LOGIC NOT DONE                 
+                    UpdateEmployee();                 
                     break;
                 case "delete":
-                    DeleteEmployee(); // LOGIC NOT DONE
+                    DeleteEmployee(); 
                     break;
                 default:
                     UserInterface.DisplayUserOptions("Input not recognized please try again.");
